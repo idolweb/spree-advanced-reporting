@@ -1,8 +1,8 @@
 class Admin::AdvancedReportOverviewController < Admin::BaseController
   def index
     @reports = Admin::ReportsController::ADVANCED_REPORTS
-    @products = Product.all
-    @taxons = Taxon.all
+    @products = Product.all(:order => "name")
+    @taxons = Taxon.all(:order => "name")
     if defined?(MultiDomainExtension)
       @stores = Store.all
     end

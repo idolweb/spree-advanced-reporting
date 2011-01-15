@@ -11,5 +11,5 @@ map.namespace :admin do |admin|
     :geo_units 		=> :get,
     :geo_profit 	=> :get,
   }
-  map.admin "/admin", :controller => 'admin/advanced_report_overview', :action => 'index'
+  #map.admin "/admin", :controller => 'admin/advanced_report_overview', :action => 'index'
 end

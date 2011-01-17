@@ -74,7 +74,7 @@ class AdvancedReport
     if !self.product.nil? && product_in_taxon
       rev = order.line_items.select { |li| li.product == self.product }.inject(0) { |a, b| a += b.quantity * b.price }
     elsif !self.taxon.nil?
-      rev = order.line_items.select { |li| li.product && li.product.taxons.include?(self.taxon) }.inject(0) { |a, b| a += b.quantity * b.price }
+      rev = order.line_items.select { |li| li.product && in_taxon?(li.product, self.taxon) }.inject(0) { |a, b| a += b.quantity * b.price }
     end
     self.product_in_taxon ? rev : 0
   end
@@ -84,7 +84,7 @@ class AdvancedReport
     if !self.product.nil? && product_in_taxon
       profit = order.line_items.select { |li| li.product == self.product }.inject(0) { |profit, li| profit + (li.variant.price - li.variant.cost_price.to_f)*li.quantity }
     elsif !self.taxon.nil?
-      profit = order.line_items.select { |li| li.product && li.product.taxons.include?(self.taxon) }.inject(0) { |profit, li| profit + (li.variant.price - li.variant.cost_price.to_f)*li.quantity }
+      profit = order.line_items.select { |li| li.product && in_taxon?(li.product, self.taxon) }.inject(0) { |profit, li| profit + (li.variant.price - li.variant.cost_price.to_f)*li.quantity }
     end
     self.product_in_taxon ? profit : 0
   end
@@ -94,12 +94,16 @@ class AdvancedReport
     if !self.product.nil? && product_in_taxon
       units = order.line_items.select { |li| li.product == self.product }.inject(0) { |a, b| a += b.quantity }
     elsif !self.taxon.nil?
-      units = order.line_items.select { |li| li.product && li.product.taxons.include?(self.taxon) }.inject(0) { |a, b| a += b.quantity }
+      units = order.line_items.select { |li| li.product && in_taxon?(li.product, self.taxon) }.inject(0) { |a, b| a += b.quantity }
     end
     self.product_in_taxon ? units : 0
   end
 
   def order_count(order)
     self.product_in_taxon ? 1 : 0
+  end
+  
+  def in_taxon?(product, taxon)
+    product.taxons.include?(taxon) || (taxon.descendants & product.taxons).size > 0
   end
 end

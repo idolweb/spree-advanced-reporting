@@ -26,7 +26,7 @@ module AdvancedReporting::ReportsController
   def basic_report_setup
     @reports = ADVANCED_REPORTS
     @products = Product.all(:order => "name")
-    @taxons = Taxon.all(:order => "name")
+    @taxons = Taxon.all(:order => "permalink")
     if defined?(MultiDomainExtension)
       @stores = Store.all
     end

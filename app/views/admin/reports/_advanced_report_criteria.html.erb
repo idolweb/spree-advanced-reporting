@@ -12,7 +12,7 @@
 
     <div id="taxon_products">
     <% if @taxons -%>
-      Taxon: <br /><%= collection_select(:advanced_reporting, :taxon_id, @taxons, :id, :name, { :include_blank => 'All' } ) %><br />
+      Taxon: <br /><%= collection_select(:advanced_reporting, :taxon_id, @taxons, :id, :permalink, { :include_blank => 'All' } ) %><br />
     <% end -%>
       Product:<br /><%= collection_select(:advanced_reporting, :product_id, @products, :id, :name, { :include_blank => 'All' } ) %><br />
     </div>

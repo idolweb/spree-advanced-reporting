@@ -50,7 +50,7 @@ function drawChart() {
         <% end -%>
         var chart_<%= type.to_s %> = new google.visualization.ColumnChart(document.getElementById('<%= type.to_s %>_chart'));
         chart_<%= type.to_s %>.draw(data_<%= type.to_s %>, {
-		width: "100%",
+		width: 800,
 		height: 400,
 		legend : 'none',
 		title: '<%= type.to_s.capitalize + ' ' + @report.name %>' });

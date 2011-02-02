@@ -12,6 +12,8 @@ class AdvancedReportingExtension < Spree::Extension
   end
 
   def activate
+    require "ruport"
+    
     Admin::ReportsController.send(:include, AdvancedReporting::ReportsController)
     Admin::ReportsController::AVAILABLE_REPORTS.merge(AdvancedReporting::ReportsController::ADVANCED_REPORTS)
 

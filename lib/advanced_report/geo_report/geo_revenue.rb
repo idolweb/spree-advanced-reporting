@@ -1,4 +1,6 @@
 class AdvancedReport::GeoReport::GeoRevenue < AdvancedReport::GeoReport
+  include ActionView::Helpers::NumberHelper
+  
   def name
     "Revenue by Geography"
   end
@@ -38,7 +40,7 @@ class AdvancedReport::GeoReport::GeoRevenue < AdvancedReport::GeoReport
       data[type].each { |k, v| ruportdata[type] << { "location" => v[:name], "Revenue" => v[:revenue] } }
       ruportdata[type].sort_rows_by!(["location"])
       ruportdata[type].rename_column("location", type.to_s.capitalize)
-      ruportdata[type].replace_column("Revenue") { |r| "$%0.2f" % r.Revenue }
+      ruportdata[type].replace_column("Revenue") { |r| number_to_currency(r.Revenue) }
     end
   end
 end

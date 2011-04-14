@@ -1,4 +1,6 @@
 class AdvancedReport
+  include ActionView::Helpers::NumberHelper
+  
   attr_accessor :orders, :product_text, :date_text, :taxon_text, :ruportdata, :data, :params, :taxon, :product, :product_in_taxon
 
   def name

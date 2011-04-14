@@ -39,10 +39,10 @@ class AdvancedReport::IncrementReport::Revenue < AdvancedReport::IncrementReport
 
     generate_ruport_data
 
-    INCREMENTS.each { |type| ruportdata[type].replace_column("Revenue") { |r| "$%0.2f" % r["Revenue"] } }
+    INCREMENTS.each { |type| ruportdata[type].replace_column("Revenue") { |r| number_to_currency(r["Revenue"]) } }
   end
 
   def format_total
-    '$' + ((self.total*100).round.to_f / 100).to_s
+    number_to_currency((self.total*100).round.to_f / 100)
   end
 end

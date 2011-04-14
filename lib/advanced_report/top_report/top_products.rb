@@ -28,7 +28,7 @@ class AdvancedReport::TopReport::TopProducts < AdvancedReport::TopReport
     data.inject({}) { |h, (k, v) | h[k] = v[:revenue]; h }.sort { |a, b| a[1] <=> b [1] }.reverse[0..limit].each do |k, v|
       ruportdata << { "name" => data[k][:name], "Units" => data[k][:units], "Revenue" => data[k][:revenue] } 
     end
-    ruportdata.replace_column("Revenue") { |r| "$%0.2f" % r.Revenue }
+    ruportdata.replace_column("Revenue") { |r| number_to_currency(r.Revenue) }
     ruportdata.rename_column("name", "Product Name")
   end
 end
